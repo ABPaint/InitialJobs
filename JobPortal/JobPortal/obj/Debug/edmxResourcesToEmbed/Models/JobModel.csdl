@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AndrewDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Job">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Company" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Experience" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Salary" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Education" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="Poster" Type="Int32" />
+    <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="User" Relationship="Self.FK__Jobs__Poster__72C60C4A" FromRole="Jobs" ToRole="Users" />
+    <NavigationProperty Name="SavedJobs" Relationship="Self.FK__SavedJobs__JobId__7A672E12" FromRole="Jobs" ToRole="SavedJobs" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RId" />
+    </Key>
+    <Property Name="RId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__Users__RoleId__656C112C" FromRole="Roles" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="SavedJob">
+    <Key>
+      <PropertyRef Name="SavedIDs" />
+    </Key>
+    <Property Name="UId" Type="Int32" Nullable="false" />
+    <Property Name="JobId" Type="Int32" />
+    <Property Name="SavedIDs" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Job" Relationship="Self.FK__SavedJobs__JobId__7A672E12" FromRole="SavedJobs" ToRole="Jobs" />
+    <NavigationProperty Name="User" Relationship="Self.FK__SavedJobs__UId__7C4F7684" FromRole="SavedJobs" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UId" />
+    </Key>
+    <Property Name="UId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RoleId" Type="Int32" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Jobs" Relationship="Self.FK__Jobs__Poster__72C60C4A" FromRole="Users" ToRole="Jobs" />
+    <NavigationProperty Name="Role" Relationship="Self.FK__Users__RoleId__656C112C" FromRole="Users" ToRole="Roles" />
+    <NavigationProperty Name="SavedJobs" Relationship="Self.FK__SavedJobs__UId__7C4F7684" FromRole="Users" ToRole="SavedJobs" />
+  </EntityType>
+  <Association Name="FK__Jobs__Poster__72C60C4A">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Jobs" Type="Self.Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UId" />
+      </Principal>
+      <Dependent Role="Jobs">
+        <PropertyRef Name="Poster" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SavedJobs__JobId__7A672E12">
+    <End Role="Jobs" Type="Self.Job" Multiplicity="0..1" />
+    <End Role="SavedJobs" Type="Self.SavedJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Jobs">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SavedJobs">
+        <PropertyRef Name="JobId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Users__RoleId__656C112C">
+    <End Role="Roles" Type="Self.Role" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="RId" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SavedJobs__UId__7C4F7684">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="SavedJobs" Type="Self.SavedJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UId" />
+      </Principal>
+      <Dependent Role="SavedJobs">
+        <PropertyRef Name="UId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AndrewDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Jobs" EntityType="Self.Job" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="SavedJobs" EntityType="Self.SavedJob" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK__Jobs__Poster__72C60C4A" Association="Self.FK__Jobs__Poster__72C60C4A">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Jobs" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SavedJobs__JobId__7A672E12" Association="Self.FK__SavedJobs__JobId__7A672E12">
+      <End Role="Jobs" EntitySet="Jobs" />
+      <End Role="SavedJobs" EntitySet="SavedJobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Users__RoleId__656C112C" Association="Self.FK__Users__RoleId__656C112C">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SavedJobs__UId__7C4F7684" Association="Self.FK__SavedJobs__UId__7C4F7684">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="SavedJobs" EntitySet="SavedJobs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

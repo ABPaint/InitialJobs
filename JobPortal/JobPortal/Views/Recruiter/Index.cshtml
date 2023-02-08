@@ -1,0 +1,48 @@
+﻿@model IEnumerable<JobPortal.Models.User>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Recruiter</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            
+        </th>
+
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        if (item.RoleId.Equals(1))
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+
+
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.UId })
+                </td>
+            </tr>
+        }
+    }
+
+</table>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c2a3c722ee704f17a0afaf27797b9cc5" Name="Diagram1">
+        <EntityTypeShape EntityType="AndrewDBModel.Job" Width="1.5" PointX="4.125" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AndrewDBModel.Role" Width="1.5" PointX="1.5" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="AndrewDBModel.SavedJob" Width="1.5" PointX="6.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AndrewDBModel.User" Width="1.5" PointX="4.125" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="AndrewDBModel.FK__Jobs__Poster__72C60C4A" ManuallyRouted="false" />
+        <AssociationConnector Association="AndrewDBModel.FK__SavedJobs__JobId__7A672E12" ManuallyRouted="false" />
+        <AssociationConnector Association="AndrewDBModel.FK__Users__RoleId__656C112C" ManuallyRouted="false" />
+        <AssociationConnector Association="AndrewDBModel.FK__SavedJobs__UId__7C4F7684" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
